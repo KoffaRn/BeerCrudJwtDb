@@ -1,7 +1,9 @@
-package org.koffa.beercrudjwtdb.beer;
+package org.koffa.beercrudjwtdb.services;
 
 import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
+import org.koffa.beercrudjwtdb.models.Beer;
+import org.koffa.beercrudjwtdb.repositories.BeerRepository;
 import org.springframework.stereotype.Service;
 
 @Service

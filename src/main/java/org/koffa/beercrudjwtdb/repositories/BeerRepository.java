@@ -1,11 +1,10 @@
-package org.koffa.beercrudjwtdb.beer;
+package org.koffa.beercrudjwtdb.repositories;
 
+import org.koffa.beercrudjwtdb.models.Beer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 
 @Repository

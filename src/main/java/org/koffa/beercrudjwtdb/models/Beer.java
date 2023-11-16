@@ -1,4 +1,4 @@
-package org.koffa.beercrudjwtdb.beer;
+package org.koffa.beercrudjwtdb.models;
 
 import jakarta.persistence.*;
 import lombok.Data;

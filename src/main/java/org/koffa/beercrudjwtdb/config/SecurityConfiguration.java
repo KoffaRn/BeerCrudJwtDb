@@ -32,6 +32,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final RSAKeyProperties keyProperties;
+    private static final String[] AUTH_WHITELIST = {
+            // Auth
+            "api/auth/**",
+            // Swagger UI
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+    };
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -48,7 +62,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("api/auth/**").permitAll();
+                    auth.requestMatchers(AUTH_WHITELIST).permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/api/beers/**").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/beers/**").permitAll();
                     auth.requestMatchers(HttpMethod.PUT, "/api/beers/**").hasAnyRole("ADMIN", "USER");

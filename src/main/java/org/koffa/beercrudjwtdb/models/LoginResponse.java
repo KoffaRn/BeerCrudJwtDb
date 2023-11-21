@@ -1,4 +1,4 @@
 package org.koffa.beercrudjwtdb.models;
 
-public record LoginResponse(User user, String jwt) {
+public record LoginResponse(User user) {
 }

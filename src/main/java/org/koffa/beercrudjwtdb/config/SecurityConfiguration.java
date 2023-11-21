@@ -34,7 +34,7 @@ public class SecurityConfiguration {
     private final RSAKeyProperties keyProperties;
     private static final String[] AUTH_WHITELIST = {
             // Auth
-            "api/auth/**",
+            "/api/auth/**",
             // Swagger UI
             "/v2/api-docs",
             "/swagger-resources",
@@ -54,6 +54,7 @@ public class SecurityConfiguration {
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPostAuthenticationChecks();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(daoAuthenticationProvider);

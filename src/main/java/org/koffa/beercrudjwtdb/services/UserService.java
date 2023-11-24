@@ -2,13 +2,10 @@ package org.koffa.beercrudjwtdb.services;
 
 import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
-import org.koffa.beercrudjwtdb.models.Role;
 import org.koffa.beercrudjwtdb.models.User;
 import org.koffa.beercrudjwtdb.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor

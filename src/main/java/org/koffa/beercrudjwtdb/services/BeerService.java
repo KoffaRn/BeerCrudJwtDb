@@ -28,10 +28,4 @@ public class BeerService {
     public Iterable<Beer> findAll() {
         return beerRepository.findAll();
     }
-    public Iterable<String> getAllBreweries() {
-        return beerRepository.getAllBreweries();
-    }
-    public Iterable<Beer> findBeersByType(String type) {
-        return beerRepository.findByType(type).orElseThrow(() -> new NoResultException("No beer found for type " + type));
-    }
 }

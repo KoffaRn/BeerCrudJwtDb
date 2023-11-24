@@ -37,10 +37,8 @@ public class AuthenticationService {
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
         );
-
         String token = tokenService.generateJwt(auth);
         User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
-        user.setPassword("");
         return new LoginResponse(user, token);
     }
 }

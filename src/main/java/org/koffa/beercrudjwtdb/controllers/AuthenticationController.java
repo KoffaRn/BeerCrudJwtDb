@@ -21,7 +21,6 @@ public class AuthenticationController {
     public ResponseEntity<User> register(@RequestBody RegistrationRequest registrationRequest) {
         try {
             User registeredUser = authenticationService.register(registrationRequest);
-            registeredUser.setPassword("");
             return ResponseEntity.ok(registeredUser);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

@@ -1,19 +1,25 @@
 package org.koffa.beercrudjwtdb.services;
 
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
+import org.koffa.beercrudjwtdb.models.Role;
+import org.koffa.beercrudjwtdb.models.User;
 import org.koffa.beercrudjwtdb.repositories.UserRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
-    private final UserRepository repository;
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+public class UserService {
+    private final UserRepository userRepository;
+    public void deleteById(Long id) throws NoResultException {
+        if(userRepository.existsById(id)) userRepository.deleteById(id);
+        else throw new NoResultException("No user found for id " + id);
+    }
+    public User changeUser(User user) throws NoResultException, IllegalArgumentException {
+        if(!userRepository.existsById(user.getId())) throw new NoResultException("No user found for id " + user.getId());
+        return userRepository.save(user);
     }
 }

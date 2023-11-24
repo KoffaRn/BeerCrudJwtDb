@@ -67,6 +67,7 @@ public class SecurityConfiguration {
                     auth.requestMatchers(HttpMethod.POST, "/api/beers/**").permitAll();
                     auth.requestMatchers(HttpMethod.PUT, "/api/beers/**").hasAnyRole("ADMIN", "USER");
                     auth.requestMatchers(HttpMethod.DELETE, "/api/beers/**").hasAnyRole("ADMIN", "USER");
+                    auth.requestMatchers("/api/admin/**").hasRole("ADMIN");
                     auth.anyRequest().authenticated();
                 });
         http.oauth2ResourceServer(oauth -> oauth.jwt(

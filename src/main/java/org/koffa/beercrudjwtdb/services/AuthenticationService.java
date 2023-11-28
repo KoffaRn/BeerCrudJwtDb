@@ -1,11 +1,11 @@
 package org.koffa.beercrudjwtdb.services;
 
 import lombok.RequiredArgsConstructor;
-import org.koffa.beercrudjwtdb.models.LoginResponse;
+import org.koffa.beercrudjwtdb.models.AuthRequest;
+import org.koffa.beercrudjwtdb.models.AuthResponse;
 import org.koffa.beercrudjwtdb.models.User;
 import org.koffa.beercrudjwtdb.repositories.RoleRepository;
 import org.koffa.beercrudjwtdb.repositories.UserRepository;
-import org.koffa.beercrudjwtdb.models.RegistrationRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,20 +25,21 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
-    public User register(RegistrationRequest registrationRequest) {
-        return userRepository.save(User.builder()
+    public AuthResponse register(AuthRequest registrationRequest) {
+        User user = userRepository.save(User.builder()
                 .username(registrationRequest.username())
                 .password(passwordEncoder.encode(registrationRequest.password()))
                 .roles(new HashSet<>(List.of(roleRepository.findByAuthority("USER").orElseThrow(() -> new RuntimeException("User role not found")))))
                 .build());
+        return new AuthResponse(user, tokenService.generateJwt(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())));
     }
 
-    public LoginResponse loginUser(String username, String password) {
+    public AuthResponse loginUser(String username, String password) {
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
         );
         String token = tokenService.generateJwt(auth);
         User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
-        return new LoginResponse(user, token);
+        return new AuthResponse(user, token);
     }
 }

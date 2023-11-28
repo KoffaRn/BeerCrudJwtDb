@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
     @Column(unique = true)

@@ -34,7 +34,7 @@ public class SecurityConfiguration {
     private final RSAKeyProperties keyProperties;
     private static final String[] AUTH_WHITELIST = {
             // Auth
-            "api/auth/**",
+            "/api/auth/**",
             // Swagger UI
             "/v2/api-docs",
             "/swagger-resources",

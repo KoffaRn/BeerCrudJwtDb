@@ -45,7 +45,7 @@ public class BeerController {
             return ResponseEntity.badRequest().build();
         }
     }
-    @PutMapping("{id}")
+    @PutMapping
     public ResponseEntity<Beer> update(@RequestBody Beer beer) {
         try {
             return ResponseEntity.ok(beerService.update(beer));

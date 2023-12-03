@@ -34,7 +34,7 @@ public class BeerController {
             beerService.deleteById(id);
             return ResponseEntity.ok("Beer deleted: " + id);
         } catch (NoResultException e) {
-            return ResponseEntity.ok("Beer deleted: 0");
+            return ResponseEntity.notFound().build();
         }
     }
     @PostMapping
@@ -49,7 +49,10 @@ public class BeerController {
     public ResponseEntity<Beer> update(@RequestBody Beer beer) {
         try {
             return ResponseEntity.ok(beerService.update(beer));
-        } catch (Exception e) {
+        } catch (NoResultException e) {
+            return ResponseEntity.notFound().build();
+        }
+        catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }

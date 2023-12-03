@@ -17,7 +17,9 @@ public class AdminUserController {
         try {
             userService.deleteById(id);
             return ResponseEntity.ok("User deleted");
-        } catch (NoResultException | IllegalArgumentException e) {
+        } catch (NoResultException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -25,7 +27,9 @@ public class AdminUserController {
     public ResponseEntity<Object> changeUser(@RequestBody User user) {
         try {
             return ResponseEntity.ok(userService.changeUser(user));
-        } catch (NoResultException | IllegalArgumentException e) {
+        } catch (NoResultException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
